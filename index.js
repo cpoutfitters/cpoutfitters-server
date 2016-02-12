@@ -13,7 +13,7 @@ if (!databaseUri) {
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'cpoutfitters-server',
+  appId: process.env.APP_ID || 'cpoutfitters',
   masterKey: process.env.MASTER_KEY || 'SauronSeesAll' //Add your master key here. Keep it secret!
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
