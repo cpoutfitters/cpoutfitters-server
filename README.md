@@ -1,4 +1,8 @@
-# parse-server-example
+# Parse Backend for Outfitters App
+
+Deployed on Heroku & mLab, supports the front end of iOS App
+
+## parse-server-example
 
 Example project using the parse-server module on Express.
 
