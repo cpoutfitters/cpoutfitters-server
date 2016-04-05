@@ -16,48 +16,54 @@ Parse.Cloud.define('outfits/recommend', function(req, res) {
 
   // This tQuery.find() is unlikely to finish before response.success() is called.
   tQuery.first({
-  success: function(top) {
-    // Successfully retrieved the object.
-    var bQuery = new Parse.tQuery("Article");
-    bQuery.equalTo("type", "bottom");
-    bQuery.equalTo("occasion", occasion);
-    bQuery.equalTo("owner", owner);
-    bQuery.ascending("lastWorn");
-
-    // This tQuery.find() is unlikely to finish before response.success() is called.
-    bQuery.first({
-    success: function(bottom) {
-
+    success: function(top) {
       // Successfully retrieved the object.
-      var fQuery = new Parse.tQuery("Article");
-      fQuery.equalTo("type", "footwear");
-      fQuery.equalTo("occasion", occasion);
-      fQuery.equalTo("owner", owner);
-      fQuery.ascending("lastWorn");
+      var bQuery = new Parse.tQuery("Article");
+      bQuery.equalTo("type", "bottom");
+      bQuery.equalTo("occasion", occasion);
+      bQuery.equalTo("owner", owner);
+      bQuery.ascending("lastWorn");
 
       // This tQuery.find() is unlikely to finish before response.success() is called.
       bQuery.first({
-      success: function(footwear) {
-        // Successfully retrieved the object.
-        var Outfit = Parse.Object.extend("Outfit");
-        var outfit = new Outfit();
-        outfit.owner = owner;
-        outfit.components = [top, bottom, footwear];
-        outfit.lastWorn = new Date();
-        outfit.useCount = 0;
+        success: function(bottom) {
 
-        console.log(outfit);
-        response.success(outfit); // Response: "<Outfit>"
-      },
-      error: function(error) {
-        res.error("No footwear found");
+          // Successfully retrieved the object.
+          var fQuery = new Parse.tQuery("Article");
+          fQuery.equalTo("type", "footwear");
+          fQuery.equalTo("occasion", occasion);
+          fQuery.equalTo("owner", owner);
+          fQuery.ascending("lastWorn");
+
+          // This tQuery.find() is unlikely to finish before response.success() is called.
+          fQuery.first({
+            success: function(footwear) {
+              // Successfully retrieved the object.
+              var Outfit = Parse.Object.extend("Outfit");
+              var outfit = new Outfit();
+              outfit.owner = owner;
+              outfit.components = [top, bottom, footwear];
+              outfit.lastWorn = new Date();
+              outfit.useCount = 0;
+
+              console.log(outfit);
+              res.success(outfit); // Response: "<Outfit>"
+            },
+            error: function(error) {
+              console.log("Error: " + error.code + " " + error.message);
+              res.error("No footwear found");
+            }
+          });
+        },
+        error: function(error) {
+          console.log("Error: " + error.code + " " + error.message);
+          res.error("No bottoms found");
+        }
       });
     },
     error: function(error) {
-      alert("Error: " + error.code + " " + error.message);
-    });
-  },
-  error: function(error) {
-    alert("Error: " + error.code + " " + error.message);
+      console.log("Error: " + error.code + " " + error.message);
+      res.error("No tops found");
+    }
   });
 });
