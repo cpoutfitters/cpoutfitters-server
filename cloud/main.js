@@ -38,7 +38,6 @@ Parse.Cloud.define('outfits/recommend', function(req, res) {
       // This tQuery.find() is unlikely to finish before response.success() is called.
       bQuery.first({
       success: function(footwear) {
-
         // Successfully retrieved the object.
         var Outfit = Parse.Object.extend("Outfit");
         var outfit = new Outfit();
@@ -52,13 +51,13 @@ Parse.Cloud.define('outfits/recommend', function(req, res) {
       },
       error: function(error) {
         res.error("No footwear found");
-      }
+      });
     },
     error: function(error) {
       alert("Error: " + error.code + " " + error.message);
-    }
+    });
   },
   error: function(error) {
     alert("Error: " + error.code + " " + error.message);
-  }
+  });
 });
