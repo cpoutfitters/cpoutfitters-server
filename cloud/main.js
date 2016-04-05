@@ -8,7 +8,7 @@ var Outfit = Parse.Object.extend("Outfit");
 Parse.Cloud.define('outfits/recommend', function(req, res) {
 
   var occasion = req.params.occasion;
-  var owner = req.params.owner;
+  var owner = req.user;
 
   var tQuery = new Parse.tQuery("Article");
   tQuery.equalTo("type", "top");
