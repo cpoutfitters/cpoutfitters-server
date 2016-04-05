@@ -7,6 +7,7 @@ var Outfit = Parse.Object.extend("Outfit");
 
 Parse.Cloud.define('outfits/recommend', function(req, res) {
 
+  console.log(req.params);
   var occasion = req.params.occasion;
   var owner = req.user;
 
@@ -48,6 +49,7 @@ Parse.Cloud.define('outfits/recommend', function(req, res) {
         outfit.lastWorn = new Date();
         outfit.useCount = 0;
 
+        console.log(outfit);
         response.success(outfit); // Response: "<Outfit>"
       },
       error: function(error) {
