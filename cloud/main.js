@@ -4,7 +4,7 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 
-Parse.Cloud.define('outfits/recommend', function (req, res) {
+Parse.Cloud.define('recommend', function (req, res) {
     console.log(req.params);
     var occasion = req.params.occasion, owner = req.user, tQuery = new Parse.tQuery("Article");
     tQuery.equalTo("type", "top");
