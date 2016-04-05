@@ -3,10 +3,7 @@ Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
 
-var Outfit = Parse.Object.extend("Outfit");
-
 Parse.Cloud.define('outfits/recommend', function(req, res) {
-
   console.log(req.params);
   var occasion = req.params.occasion;
   var owner = req.user;
@@ -43,6 +40,7 @@ Parse.Cloud.define('outfits/recommend', function(req, res) {
       success: function(footwear) {
 
         // Successfully retrieved the object.
+        var Outfit = Parse.Object.extend("Outfit");
         var outfit = new Outfit();
         outfit.owner = owner;
         outfit.components = [top, bottom, footwear];
@@ -53,7 +51,7 @@ Parse.Cloud.define('outfits/recommend', function(req, res) {
         response.success(outfit); // Response: "<Outfit>"
       },
       error: function(error) {
-        res.error("No footwear found")
+        res.error("No footwear found");
       }
     },
     error: function(error) {
