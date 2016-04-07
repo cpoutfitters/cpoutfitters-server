@@ -27,7 +27,7 @@ Parse.Cloud.define('recommend', function (req, res) {
 
         console.log("Found a top!");
         // Successfully retrieved the object.
-        var bQuery = new Parse.tQuery("Article");
+        var bQuery = new Parse.Query("Article");
         bQuery.equalTo("type", "bottom");
         // bQuery.equalTo("occasion", occasion);
         bQuery.equalTo("owner", owner);
@@ -47,7 +47,7 @@ Parse.Cloud.define('recommend', function (req, res) {
 
             console.log("Found a bottom!");
             // Successfully retrieved the object.
-            var fQuery = new Parse.tQuery("Article");
+            var fQuery = new Parse.Query("Article");
             fQuery.equalTo("type", 'footwear');
             // fQuery.equalTo("occasion", occasion);
             fQuery.equalTo("owner", owner);
