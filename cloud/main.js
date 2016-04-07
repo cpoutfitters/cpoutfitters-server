@@ -39,9 +39,11 @@ Parse.Cloud.define('recommend', function (req, res) {
                         if (footwear === undefined) {
                             res.success(null);
                         } else {
-                            var Outfit = {                            topComponent: top,
-                            bottomComponent: bottom,
-                            footwearComponent: footwear};
+                            var outfit = {
+                                topComponent: top,
+                                bottomComponent: bottom,
+                                footwearComponent: footwear
+                            };
 
                             // Successfully retrieved the object.
                             // outfit.useCount = 0;
