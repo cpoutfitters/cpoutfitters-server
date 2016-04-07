@@ -39,11 +39,10 @@ Parse.Cloud.define('recommend', function (req, res) {
                         if (footwear === undefined) {
                             res.success(null);
                         } else {
-                            var rv = {};
-                            rv.topComponent = top.objectId;
-                            rv.bottomComponent = bottom.objectId;
-                            rv.footwearComponent = footwear.objectId;
-
+                            console.log(top.objectId);
+                            console.log(bottom);
+                            var rv = {topComponent:top.objectId,bottomComponent:bottom.objectId,footwearComponent:footwear.objectId};
+                            
                             var outfit = JSON.stringify(rv);
                             console.log("Sending back: " + outfit);
                             res.success(outfit);
