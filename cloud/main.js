@@ -15,7 +15,7 @@ Parse.Cloud.define('recommend', function (req, res) {
     // This tQuery.find() is unlikely to finish before response.success() is called.
     tQuery.find({
         success: function (results) {
-            if (results.length == 0) {
+            if (results.length === 0) {
                 console.log("No tops, cannot compile outfit");
                 res.error("No tops available");
                 return;
