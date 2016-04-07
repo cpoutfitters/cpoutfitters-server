@@ -45,6 +45,7 @@ Parse.Cloud.define('recommend', function (req, res) {
                             outfit.footwearComponent = footwear.objectId;
 
                             var outfit = JSON.stringify(outfit);
+                            console.log("Sending back: " + outfit);
                             res.success(outfit);
                         }
                     });
