@@ -7,11 +7,12 @@ Parse.Cloud.define('hello', function(req, res) {
 Parse.Cloud.define('recommend', function (req, res) {
     console.log(req.params);
     var occasion = req.params.occasion, owner = req.user, tQuery = new Parse.Query("Article");
-    tQuery.equalTo("type", "top");
+    // tQuery.equalTo("type", "top");
     tQuery.equalTo("occasion", occasion);
-    tQuery.equalTo("owner", owner);
-    tQuery.ascending("lastWorn");
+    // tQuery.equalTo("owner", owner);
+    // tQuery.ascending("lastWorn");
 
+    console.log(tQuery);
     // This tQuery.find() is unlikely to finish before response.success() is called.
     tQuery.find({
         success: function (results) {
