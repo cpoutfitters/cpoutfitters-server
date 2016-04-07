@@ -51,6 +51,7 @@ Parse.Cloud.define('recommend', function (req, res) {
                             outfit.save(null, {
                                 success: function (savedOutfit) {
                                     var id = savedOutfit.id;
+                                    console.log(savedOutfit);
                                     var outfitQuery = Parse.Query("Outfit");
                                     outfitQuery.equalTo("id", id);
                                     outfitQuery.first().then(function (outfit) {
