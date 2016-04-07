@@ -54,7 +54,7 @@ Parse.Cloud.define('recommend', function (req, res) {
                             outfit.useCount = 0;
 
                             var output = JSON.stringify(outfit);
-                            console.log("Returning outfit: " + outfit);
+                            console.log("Returning outfit: " + output);
                             res.success(output); // Response: "<Outfit>"
                         }
                     });
