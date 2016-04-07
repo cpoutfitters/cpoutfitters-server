@@ -39,13 +39,35 @@ Parse.Cloud.define('recommend', function (req, res) {
                         if (footwear === undefined) {
                             res.success(null);
                         } else {
-                            console.log(top.objectId);
-                            console.log(bottom);
-                            var rv = {topComponent:top.objectId,bottomComponent:bottom.objectId,footwearComponent:footwear.objectId};
-                            
-                            var outfit = JSON.stringify(rv);
-                            console.log("Sending back: " + outfit);
-                            res.success(outfit);
+                            var Outfit = Parse.Object.extend("Outfit"), outfit = new Outfit();
+                            outfit.owner = owner;
+                            outfit.topComponent = top;
+                            outfit.bottomComponent = bottom;
+                            outfit.footwearComponent = footwear;
+                            // Successfully retrieved the object.
+                            outfit.lastWorn = new Date();
+                            outfit.useCount = 0;
+
+                            outfit.save(null, {
+                                success: function (savedOutfit) {
+                                    var id = results.objectId;
+                                    var outfitQuery = Parse.Query("Outfit");
+                                    outfitQuery.equalTo("id", id);
+                                    outfitQuery.first().then(function (outfit) {
+                                        console.log("Outfit: " + outfit);
+                                        var json = outfit.toJSON();
+                                        console.log("JSON: " + json);
+                                        var output = JSON.stringify(json);
+                                        console.log("Returning string: " + output);
+                                        res.success(results); // Response: "<Outfit>"
+                                    }, function (error) {
+                                        console.log(error);
+                                    });
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            });
                         }
                     });
                 }
