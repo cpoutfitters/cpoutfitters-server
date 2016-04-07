@@ -48,27 +48,13 @@ Parse.Cloud.define('recommend', function (req, res) {
                             outfit.lastWorn = new Date();
                             outfit.useCount = 0;
 
-                            outfit.save(null, {
-                                success: function (savedOutfit) {
-                                    var id = savedOutfit.id;
-                                    console.log(savedOutfit);
-                                    var outfitQuery = Parse.Query("Outfit");
-                                    outfitQuery.equalTo("id", id);
-                                    outfitQuery.first().then(function (outfit) {
-                                        console.log("Outfit: " + outfit);
-                                        var json = outfit.toJSON();
-                                        console.log("JSON: " + json);
-                                        var output = JSON.stringify(json);
-                                        console.log("Returning string: " + output);
-                                        res.success(results); // Response: "<Outfit>"
-                                    }, function (error) {
-                                        console.log(error);
-                                    });
-                                },
-                                error: function (error) {
-                                    console.log(error);
-                                }
-                            });
+                            console.log("Outfit: " + outfit);
+                            var json = outfit.toJSON();
+                            console.log("JSON: " + json);
+                            var output = JSON.stringify(json);
+                            console.log("Returning string: " + output);
+                            res.success(results); // Response: "<Outfit>"
+
                         }
                     });
                 }
