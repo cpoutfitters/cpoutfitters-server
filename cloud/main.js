@@ -39,14 +39,12 @@ Parse.Cloud.define('recommend', function (req, res) {
                         if (footwear === undefined) {
                             res.success(null);
                         } else {
-                            var Outfit = Parse.Object.extend("Outfit");
-                            var outfit = new Outfit();
-                            outfit.topComponent = top;
-                            outfit.bottomComponent = bottom;
-                            outfit.footwearComponent = footwear;
+                            var Outfit = {                            topComponent: top,
+                            bottomComponent: bottom,
+                            footwearComponent: footwear};
 
                             // Successfully retrieved the object.
-                            outfit.useCount = 0;
+                            // outfit.useCount = 0;
 
                             console.log("Outfit: " + outfit);
                             var json = outfit.toJSON();
