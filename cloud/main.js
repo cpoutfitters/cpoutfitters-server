@@ -39,38 +39,13 @@ Parse.Cloud.define('recommend', function (req, res) {
                         if (footwear === undefined) {
                             res.success(null);
                         } else {
-                            var Outfit = Parse.Object.extend("Outfit"), outfit = new Outfit();
-                            outfit.owner = owner;
-                            outfit.topComponent = top;
-                            outfit.bottomComponent = bottom;
-                            outfit.footwearComponent = footwear;
-                            // Successfully retrieved the object.
-                            outfit.lastWorn = new Date();
-                            outfit.useCount = 0;
+                            var outfit = [];
+                            outfit.topComponent = top.objectId;
+                            outfit.bottomComponent = bottom.objectId;
+                            outfit.footwearComponent = footwear.objectId;
 
-                            outfit.save(null, {
-                                success: function (savedOutfit) {
-                                    var id = savedOutfit.objectId;
-                                    var outfitQuery = Parse.Query("Outfit");
-                                    outfitQuery.equalTo("objectId", id);
-                                    outfitQuery.first().then(function (outfit) {
-                                        if (outfit === undefined) {
-                                            res.success(null);
-                                        }
-                                        else {
-                                            console.log("Outfit: " + results);
-                                            var json = outfit.toJSON();
-                                            console.log("JSON: " + json);
-                                            var output = JSON.stringify(json);
-                                            console.log("Returning string: " + output);
-                                            res.success(results); // Response: "<Outfit>"
-                                        }
-                                    });
-                                },
-                                error: function (error) {
-                                    console.log(error);
-                                }
-                            });
+                            var outfit = JSON.stringify(outfit);
+                            res.success(outfit);
                         }
                     });
                 }
