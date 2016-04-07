@@ -48,12 +48,9 @@ Parse.Cloud.define('recommend', function (req, res) {
                             // Successfully retrieved the object.
                             // outfit.useCount = 0;
 
-                            console.log("Outfit: " + outfit);
-                            var json = outfit.toJSON();
-                            console.log("JSON: " + json);
-                            var output = JSON.stringify(json);
-                            console.log("Returning string: " + output);
-                            res.success(results); // Response: "<Outfit>"
+                            var json = JSON.stringify(outfit);
+                            console.log("Outfit: " + json);
+                            res.success(json); // Response: "<Outfit>"
 
                         }
                     });
