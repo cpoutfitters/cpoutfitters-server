@@ -5,15 +5,17 @@ Parse.Cloud.define('hello', function(req, res) {
 
 Parse.Cloud.define('recommend', function (req, res) {
     console.log(req.params);
-    var occasion = req.params.occasion, owner = req.user, tQuery = new Parse.Query("Article");
-    // tQuery.equalTo("type", "top");
-    tQuery.equalTo("occasion", occasion);
-    // tQuery.equalTo("owner", owner);
+    var occasion = req.params.occasion, owner = req.user, tTypeQuery = new Parse.Query("Article"), tOccasionQuery = new Parse.Query("Article"), tOwnerQuery = new Parse.Query("Article");
+
+    tTypeQuery.equalTo("type", "top");
+    tOccasionQuery.equalTo("occasion", occasion);
+    tOwnerQuery.equalTo("owner", owner);
     // tQuery.ascending("lastWorn");
+    var mainQuery = Parse.Query.and(tTypeQuery, tOccasionQuery, tOwnerQuery);
 
     console.log(tQuery);
     // This tQuery.find() is unlikely to finish before response.success() is called.
-    tQuery.find({
+    mainQuery.find({
         success: function (results) {
             if (results.length == 0) {
                 console.log("No tops, cannot compile outfit");
@@ -28,7 +30,7 @@ Parse.Cloud.define('recommend', function (req, res) {
             bQuery.equalTo("type", "bottom");
             bQuery.equalTo("occasion", occasion);
             bQuery.equalTo("owner", owner);
-            bQuery.ascending("lastWorn");
+            // bQuery.ascending("lastWorn");
 
             // This tQuery.find() is unlikely to finish before response.success() is called.
             bQuery.find({
