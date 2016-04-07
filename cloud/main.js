@@ -15,6 +15,12 @@ Parse.Cloud.define('recommend', function (req, res) {
     // This tQuery.find() is unlikely to finish before response.success() is called.
     tQuery.find({
         success: function (results) {
+            if (results.length == 0) {
+                console.log("No tops, cannot compile outfit");
+                res.error("No tops available");
+                return;
+            }
+
             var top = results[0];
             console.log("Found a top!");
             // Successfully retrieved the object.
@@ -25,8 +31,15 @@ Parse.Cloud.define('recommend', function (req, res) {
             bQuery.ascending("lastWorn");
 
             // This tQuery.find() is unlikely to finish before response.success() is called.
-            bQuery.first({
-                success: function (bottom) {
+            bQuery.find({
+                success: function (results) {
+                    if (results.length == 0) {
+                        console.log("No bottoms, cannot compile outfit");
+                        res.error("No bottoms available");
+                        return;
+                    }
+
+                    var bottom = results[0];
                     console.log("Found a bottom!")
                     // Successfully retrieved the object.
                     var fQuery = new Parse.tQuery("Article");
@@ -36,8 +49,15 @@ Parse.Cloud.define('recommend', function (req, res) {
                     fQuery.ascending("lastWorn");
 
                     // This tQuery.find() is unlikely to finish before response.success() is called.
-                    fQuery.first({
-                        success: function (footwear) {
+                    fQuery.find({
+                        success: function (results) {
+                            if (results.length == 0) {
+                                console.log("No footwear, cannot compile outfit");
+                                res.error("No footwear available");
+                                return;
+                            }
+
+                            var footwear = results[0];
                             console.log("Found a footwear!")
                             // Successfully retrieved the object.
                             var Outfit = Parse.Object.extend("Outfit"), outfit = new Outfit();
