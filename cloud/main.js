@@ -67,9 +67,9 @@ Parse.Cloud.define('recommend', function (req, res) {
                                 },
                                 error: function (error) {
                                     console.log(error);
-                                });
-                            }
-                        });
+                                }
+                            });
+                        }
                     });
                 }
             });
