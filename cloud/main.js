@@ -53,8 +53,11 @@ Parse.Cloud.define('recommend', function (req, res) {
                             outfit.lastWorn = new Date();
                             outfit.useCount = 0;
 
-                            var output = JSON.stringify(outfit.toJSON());
-                            console.log("Returning outfit: " + output);
+                            console.log("Outfit: " + outfit);
+                            var json = outfit.toJSON();
+                            console.log("JSON: " + json);
+                            var output = JSON.stringify(json);
+                            console.log("Returning string: " + output);
                             res.success(output); // Response: "<Outfit>"
                         }
                     });
