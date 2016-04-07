@@ -13,15 +13,14 @@ Parse.Cloud.define('recommend', function (req, res) {
 
     console.log(tQuery);
     // This tQuery.find() is unlikely to finish before response.success() is called.
-    tQuery.find({
-        success: function (results) {
-            if (results.length === 0) {
+    tQuery.first({
+        success: function (top) {
+            if (top === undefined) {
                 console.log("No tops, cannot compile outfit");
                 res.error("No tops available");
                 return;
             }
 
-            var top = results[0];
             console.log("Found a top!");
             // Successfully retrieved the object.
             var bQuery = new Parse.tQuery("Article");
@@ -31,15 +30,14 @@ Parse.Cloud.define('recommend', function (req, res) {
             bQuery.ascending("lastWorn");
 
             // This tQuery.find() is unlikely to finish before response.success() is called.
-            bQuery.find({
-                success: function (results) {
-                    if (results.length === 0) {
+            bQuery.first({
+                success: function (bottom) {
+                    if (bottom === undefined) {
                         console.log("No bottoms, cannot compile outfit");
                         res.error("No bottoms available");
                         return;
                     }
 
-                    var bottom = results[0];
                     console.log("Found a bottom!");
                     // Successfully retrieved the object.
                     var fQuery = new Parse.tQuery("Article");
@@ -49,15 +47,14 @@ Parse.Cloud.define('recommend', function (req, res) {
                     fQuery.ascending("lastWorn");
 
                     // This tQuery.find() is unlikely to finish before response.success() is called.
-                    fQuery.find({
-                        success: function (results) {
-                            if (results.length === 0) {
+                    fQuery.first({
+                        success: function (footwear) {
+                            if (footwear === undefined) {
                                 console.log("No footwear, cannot compile outfit");
                                 res.error("No footwear available");
                                 return;
                             }
 
-                            var footwear = results[0];
                             console.log("Found a footwear!");
                             // Successfully retrieved the object.
                             var Outfit = Parse.Object.extend("Outfit"), outfit = new Outfit();
