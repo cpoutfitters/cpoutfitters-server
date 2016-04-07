@@ -6,9 +6,9 @@ Parse.Cloud.define('hello', function(req, res) {
 Parse.Cloud.define('recommend', function (req, res) {
     console.log(req.params);
     var occasion = req.params.occasion, owner = req.user, tQuery = new Parse.Query("Article");
-    tQuery.whereEqualTo("type", "top");
-    tQuery.whereEqualTo("occasion", occasion);
-    tQuery.whereEqualTo("owner", owner);
+    tQuery.equalTo("type", "top");
+    tQuery.equalTo("occasion", occasion);
+    tQuery.equalTo("owner", owner);
     tQuery.ascending("lastWorn");
 
     console.log(tQuery);
@@ -25,9 +25,9 @@ Parse.Cloud.define('recommend', function (req, res) {
             console.log("Found a top!");
             // Successfully retrieved the object.
             var bQuery = new Parse.tQuery("Article");
-            bQuery.whereEqualTo("type", "bottom");
-            bQuery.whereEqualTo("occasion", occasion);
-            bQuery.whereEqualTo("owner", owner);
+            bQuery.equalTo("type", "bottom");
+            bQuery.equalTo("occasion", occasion);
+            bQuery.equalTo("owner", owner);
             bQuery.ascending("lastWorn");
 
             // This tQuery.find() is unlikely to finish before response.success() is called.
@@ -43,9 +43,9 @@ Parse.Cloud.define('recommend', function (req, res) {
                     console.log("Found a bottom!");
                     // Successfully retrieved the object.
                     var fQuery = new Parse.tQuery("Article");
-                    fQuery.whereEqualTo("type", "footwear");
-                    fQuery.whereEqualTo("occasion", occasion);
-                    fQuery.whereEqualTo("owner", owner);
+                    fQuery.equalTo("type", "footwear");
+                    fQuery.equalTo("occasion", occasion);
+                    fQuery.equalTo("owner", owner);
                     fQuery.ascending("lastWorn");
 
                     // This tQuery.find() is unlikely to finish before response.success() is called.
