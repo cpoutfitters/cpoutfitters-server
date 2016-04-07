@@ -8,7 +8,7 @@ Parse.Cloud.define('recommend', function (req, res) {
     var occasion = req.params.occasion, owner = req.user, tQuery = new Parse.Query("Article");
     tQuery.equalTo("type", "top");
     tQuery.equalTo("occasion", occasion);
-    tQuery.equalTo("owner", owner);
+    // tQuery.equalTo("owner", owner);
     tQuery.ascending("lastWorn");
 
     var Outfit = Parse.Object.extend("Outfit"), outfit = new Outfit();
@@ -24,7 +24,7 @@ Parse.Cloud.define('recommend', function (req, res) {
         }
 
         outfit.topComponent = top;
-        res.success(JSON.stringify(outfit));
+        res.success(JSON.stringify(outfit))
         //
         // console.log("Found a top!");
         // // Successfully retrieved the object.
