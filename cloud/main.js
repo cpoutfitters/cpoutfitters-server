@@ -14,8 +14,7 @@ Parse.Cloud.define('recommend', function (req, res) {
     tQuery.first().then(function (top) {
         if (top === undefined) {
             res.success(null);
-        }
-        else {
+        } else {
             // Successfully retrieved the object.
             var bQuery = new Parse.Query("Article");
             bQuery.equalTo("type", "bottom");
@@ -27,9 +26,7 @@ Parse.Cloud.define('recommend', function (req, res) {
             bQuery.first().then(function (bottom) {
                 if (bottom === undefined) {
                     res.success(null);
-                    return;
-                }
-                else {
+                } else {
                     // Successfully retrieved the object.
                     var fQuery = new Parse.Query("Article");
                     fQuery.equalTo("type", 'footwear');
@@ -41,9 +38,7 @@ Parse.Cloud.define('recommend', function (req, res) {
                     var top = fQuery.first().then(function (footwear) {
                         if (footwear === undefined) {
                             res.success(null);
-                            return;
-                        }
-                        else {
+                        } else {
                             var Outfit = Parse.Object.extend("Outfit"), outfit = new Outfit();
                             outfit.owner = owner;
                             outfit.topComponent = top;
@@ -59,24 +54,22 @@ Parse.Cloud.define('recommend', function (req, res) {
                                 outfitQuery.equalTo("objectId", id);
                                 outfitQuery.find().then(function (outfit) {
                                     console.log("Outfit: " + results);
-                                    var json = results.toJSON();
+                                    var json = outfit.toJSON();
                                     console.log("JSON: " + json);
                                     var output = JSON.stringify(json);
                                     console.log("Returning string: " + output);
                                     res.success(results); // Response: "<Outfit>"
 
-                                },
-                                function (error) {
+                                }, function (error) {
                                     console.log(error);
-                                }
-                            );
-                        }, function (error) {
-                            console.log(error);
-                        });
-                    }
-                });
-            }
-        });
-    }
-});
+                                });
+                            }, function (error) {
+                                console.log(error);
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
