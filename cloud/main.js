@@ -13,9 +13,10 @@ Parse.Cloud.define('recommend', function (req, res) {
     tQuery.ascending("lastWorn");
 
     // This tQuery.find() is unlikely to finish before response.success() is called.
-    tQuery.first({
-        success: function (top) {
-            conole.log("Found a top!")
+    tQuery.find({
+        success: function (results) {
+            var top = results[0];
+            conole.log("Found a top!");
             // Successfully retrieved the object.
             var bQuery = new Parse.tQuery("Article");
             bQuery.equalTo("type", "bottom");
