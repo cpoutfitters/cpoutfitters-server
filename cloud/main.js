@@ -24,7 +24,6 @@ Parse.Cloud.define('recommend', function (req, res) {
         }
 
         outfit.topComponent = top;
-        res.success(JSON.stringify(outfit))
 
         console.log("Found a top!");
         // Successfully retrieved the object.
@@ -44,6 +43,8 @@ Parse.Cloud.define('recommend', function (req, res) {
                 return;
             }
 
+            outfit.bottomComponent = bottom;
+
             console.log("Found a bottom!");
             // Successfully retrieved the object.
             var fQuery = new Parse.tQuery("Article");
@@ -61,9 +62,9 @@ Parse.Cloud.define('recommend', function (req, res) {
                     return;
                 }
 
+                outfit.footwearComponent = footwear;
                 console.log("Found a footwear!");
                 // Successfully retrieved the object.
-                outfit.components = [top, bottom, footwear];
                 outfit.lastWorn = new Date();
                 outfit.useCount = 0;
 
