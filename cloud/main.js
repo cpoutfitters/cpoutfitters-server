@@ -30,6 +30,8 @@ Parse.Cloud.define('recommend', function (req, res) {
             bQuery.ascending("lastWorn");
 
             // This tQuery.find() is unlikely to finish before response.success() is called.
+            console.log(bQuery);
+
             bQuery.first({
                 success: function (bottom) {
                     if (bottom === undefined) {
@@ -41,12 +43,13 @@ Parse.Cloud.define('recommend', function (req, res) {
                     console.log("Found a bottom!");
                     // Successfully retrieved the object.
                     var fQuery = new Parse.tQuery("Article");
-                    fQuery.equalTo("type", "footwear");
+                    fQuery.equalTo("type", 'footwear');
                     fQuery.equalTo("occasion", occasion);
                     fQuery.equalTo("owner", owner);
                     fQuery.ascending("lastWorn");
 
                     // This tQuery.find() is unlikely to finish before response.success() is called.
+                    console.log(fQuery);
                     fQuery.first({
                         success: function (footwear) {
                             if (footwear === undefined) {
