@@ -3,7 +3,6 @@ Parse.Cloud.define('hello', function(req, res) {
     res.success('Hi');
 });
 
-
 Parse.Cloud.define('recommend', function (req, res) {
     console.log(req.params);
     var occasion = req.params.occasion, owner = req.user, tQuery = new Parse.Query("Article");
@@ -17,7 +16,7 @@ Parse.Cloud.define('recommend', function (req, res) {
     tQuery.find({
         success: function (results) {
             var top = results[0];
-            conole.log("Found a top!");
+            console.log("Found a top!");
             // Successfully retrieved the object.
             var bQuery = new Parse.tQuery("Article");
             bQuery.equalTo("type", "bottom");
