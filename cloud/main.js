@@ -19,7 +19,7 @@ Parse.Cloud.define('recommend', function (req, res) {
             var bQuery = new Parse.Query("Article");
             bQuery.equalTo("type", "bottom");
             // bQuery.equalTo("occasion", occasion);
-            bQuery.equalTo("owner", owner);
+            //bQuery.equalTo("owner", owner);
             bQuery.ascending("lastWorn");
 
             // This tQuery.find() is unlikely to finish before response.success() is called.
@@ -31,7 +31,7 @@ Parse.Cloud.define('recommend', function (req, res) {
                     var fQuery = new Parse.Query("Article");
                     fQuery.equalTo("type", 'footwear');
                     // fQuery.equalTo("occasion", occasion);
-                    fQuery.equalTo("owner", owner);
+                    //fQuery.equalTo("owner", owner);
                     fQuery.ascending("lastWorn");
 
                     // This tQuery.find() is unlikely to finish before response.success() is called.
